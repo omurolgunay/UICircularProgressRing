@@ -328,7 +328,7 @@ class UICircularRingLayer: CAShapeLayer {
         case .inside:
             let difference = ring.outerRingWidth * 2 + ring.innerRingSpacing + knobSize / 2
             let offSet = ring.innerRingWidth / 2 + knobSize / 2
-            radiusIn = (min(bounds.width - difference, bounds.height - difference) / 2) - offSet
+            radiusIn = (min(bounds.width - difference, bounds.height - difference) / 2) + offSet
         case .bordered(let borderWidth, _):
             let offSet = (max(ring.outerRingWidth, ring.innerRingWidth) / 2) + (knobSize / 4) + (borderWidth * 2)
             radiusIn = (min(bounds.width, bounds.height) / 2) - offSet + borderWidth
@@ -400,10 +400,11 @@ class UICircularRingLayer: CAShapeLayer {
 
         // Draws the text field
         // Some basic label properties are set
+        let valueToDisplay = (maxValue - value) + 1
         valueLabel.font = ring.font
         valueLabel.textAlignment = .center
         valueLabel.textColor = ring.fontColor
-        valueLabel.text = valueFormatter?.string(for: value)
+        valueLabel.text = valueFormatter?.string(for: valueToDisplay)
         ring.willDisplayLabel(label: valueLabel)
         valueLabel.sizeToFit()
 
